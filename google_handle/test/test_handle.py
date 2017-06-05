@@ -46,3 +46,7 @@ class GoogleStorageTestCase(TestCase):
         gss_file.write.assert_called_with(content.read())
         content.close.assert_called()
         gss_file.close.assert_called()
+
+    @mock.path("google_handle.storage.google_clound.gcs")
+    def test_state_file(self, gcs):
+        pass

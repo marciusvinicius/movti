@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 import os
 import mimetypes
@@ -22,15 +23,18 @@ class GoogleCloudStorage(Storage):
             base_url = settings.GOOGLE_CLOUD_STORAGE_URL
         self.base_url = base_url
 
+    def exists(self, name):
+        return True if self.stat_file(name) else False
+
     def _open(self, name, file_mode='r'):
-        filename = "%s/%s" % (self.location, name)
+        filename = "/%s/%s" % (self.location, name)
         gcs_file = gcs.open(filename, mode=file_mode)
         content_file = ContentFile(gcs_file.read())
         gcs_file.close()
         return content_file
 
-    def _save(self, name, content):
-        filename = "%s/%s" % (self.location, name)
+    def _save(self, name, content, *args, **kwargs):
+        filename = "/%s/%s" % (self.location, name)
         filename = os.path.normpath(filename)
         file_type, _ = mimetypes.guess_type(name)
         gss_file = gcs.open(
@@ -58,17 +62,20 @@ class GoogleCloudStorage(Storage):
         Return the URL Based on debug
         """
         if settings.DEBUG:
-            filename = "/gs%(location)s/%(name)s"  % {
+            filename = "/gs/%(location)s/%(name)s" % {
                 "location": self.location,
                 "name": name,
             }
             key = create_gs_key(filename)
-            return "http://localhost:8000/blobstore/blob/"+key+"?display=inline"
-        return "%s/%s" % (self.base_url, name)
+            return "http://localhost:8000/blobstore/blob/"+key+"preview"
+        return "/%s" % (name,)
 
     def stat_file(self, name):
         """
         Return the Stat
         """
-        filename = "%s/%s" % (self.location, name)
-        return gcs.stat(filename)
+        filename = "/%s/%s" % (self.location, name)
+        try:
+            return gcs.stat(filename)
+        except Exception:
+            return None

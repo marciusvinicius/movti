@@ -47,26 +47,26 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'myphotos.wsgi.application'
+#WSGI_APPLICATION = 'myphotos.wsgi.application'
 
 if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'HOST': '/cloudsql/moveti-169514:us-central1:myphosqlinstance',
+            'HOST': '/cloudsql/moveti-169514:us-central1:myphotosqlinstance',
             'NAME': 'myphotos',
             'USER': 'myphotouser',
-            'PASSWORD': 'oHge4GPOintJzFho',
+            'PASSWORD': 'KIwyezC8F7qowzgu',
         }
     }
 
 else:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
+            'ENGINE': 'django.db.backends.mysql',
             'NAME': 'myphoto',
             'USER': 'myphotouser',
-            'PASSWORD': 'oHge4GPOintJzFho',
+            'PASSWORD': 'KIwyezC8F7qowzgu',
             'HOST': '127.0.0.1',
             'PORT': '3306',
         }
@@ -101,8 +101,8 @@ STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
 
 
-GOOGLE_CLOUD_STORAGE_BUCKET = 'myphotobucket'
+GOOGLE_CLOUD_STORAGE_BUCKET = 'moveti-169514.appspot.com'
 GOOGLE_CLOUD_STORAGE_URL = 'http://storage.googleapis.com/bucket'
 GOOGLE_CLOUD_STORAGE_DEFAULT_CACHE_CONTROL = 'public, max-age: 7200'
 
-DEFAULT_FILE_STORAGE = 'google.storage.google_cloud.GoogleCloudStorage'
+DEFAULT_FILE_STORAGE = 'google_handle.storage.google_cloud.GoogleCloudStorage'

@@ -1,8 +1,7 @@
 #Prod
 django==1.11
 psycopg2
-google-cloud-storage
+GoogleAppEngineCloudStorageClient==1.9.22.1
 
 #Dev
-pytest==3.1.1
 mock

@@ -1,0 +1,8 @@
+#Prod
+django==1.11
+psycopg2
+google-cloud-storage
+
+#Dev
+pytest==3.1.1
+mock

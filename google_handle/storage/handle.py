@@ -66,14 +66,20 @@ class GoogleCloudStorage(Storage):
         """
         Return the URL Based on debug
         """
+        filename = "/gs/%(location)s/%(name)s" % {
+            "location": self.location,
+            "name": name,
+        }
+        key = create_gs_key(filename)
+
         if settings.ENVTYPE == "LOCAL":
-            filename = "/gs/%(location)s/%(name)s" % {
-                "location": self.location,
-                "name": name,
-            }
-            key = create_gs_key(filename)
-            return "http://localhost:8000/blobstore/blob/%s?%s" % (key, "display=inline")
-        return "/%s/%s" % (self.location, name)
+            return "/blobstore/blob/%s?%s" % (key, "display=inline")
+
+        gcs_url = 'https://%(bucket)s.storage.googleapis.com/%(file)s' % {
+            'bucket': settings.GOOGLE_CLOUD_STORAGE_BUCKET,
+            'file': name
+        }
+        return gcs_url
 
     def stat_file(self, name):
         """

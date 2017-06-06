@@ -34,7 +34,7 @@ skip_files:
 - ^(.*/)?.*/RCS/.*$
 - ^(.*/)?\..*$
 - ^env/.*$
-- sitepackages/PIL*
+- lib/PIL*
 
 builtins:
 - remote_api: on

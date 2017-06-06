@@ -66,7 +66,7 @@ class GoogleCloudStorage(Storage):
         """
         Return the URL Based on debug
         """
-        if settings.ENVTYPE == "GOOGLE":
+        if settings.ENVTYPE == "LOCAL":
             filename = "/gs/%(location)s/%(name)s" % {
                 "location": self.location,
                 "name": name,

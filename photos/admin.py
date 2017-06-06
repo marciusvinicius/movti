@@ -11,4 +11,5 @@ class PhotoAdmin(admin.ModelAdmin):
     """
     Administration Register
     """
-    pass
+    fields = ('name', 'description', 'upload', 'content', 'image_tag')
+    readonly_fields = ('content', 'image_tag')

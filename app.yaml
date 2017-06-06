@@ -20,6 +20,9 @@ libraries:
 - name: PIL
   version: "latest"
 
+- name: ssl
+  version: latest
+
 # Google App Engine limits application deployments to 10,000 uploaded files per
 # version. The skip_files section allows us to skip virtual environment files
 # to meet this requirement. The first 5 are the default regular expressions to
@@ -31,6 +34,9 @@ skip_files:
 - ^(.*/)?.*/RCS/.*$
 - ^(.*/)?\..*$
 - ^env/.*$
+
+builtins:
+- remote_api: on
 
 env_variables:
   CLOUDSDK_CONFIG: /

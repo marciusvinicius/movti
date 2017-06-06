@@ -1,3 +1,4 @@
 Django==1.11.1
 Pillow
-google-cloud-vision
+python-firebase-gae
+ssl

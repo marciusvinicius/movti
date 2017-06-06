@@ -6,7 +6,7 @@ SECRET_KEY = '&t9*(&(9*%1fzgm0)7k&@2s+xcv#+kxp2(d=8+eyojkw&lsrk1'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["moveti-169514.appspot.com", "localhost"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -54,7 +54,7 @@ if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'HOST': '/cloudsql/moveti-169514:us-central1:myphotosqlinstance',
-            'NAME': 'myphotos',
+            'NAME': 'myphoto',
             'USER': 'myphotouser',
             'PASSWORD': 'KIwyezC8F7qowzgu',
         }

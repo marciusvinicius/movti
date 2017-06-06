@@ -2,7 +2,8 @@
 django==1.11
 Pillow
 MySQL-python
-
-google-cloud-vision
+GoogleAppEngineCloudStorageClient==1.9.15.0
+google-api-python-client
+python-firebase-gae
 #Dev
 mock

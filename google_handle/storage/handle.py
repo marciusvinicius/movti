@@ -8,9 +8,10 @@ import mimetypes
 from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.files.storage import Storage
+from google.appengine.ext.blobstore.blobstore import create_gs_key
 
 
-from google.appengine.ext.blobstore import create_gs_key
+
 import cloudstorage as gcs
 
 
@@ -29,9 +30,10 @@ class GoogleCloudStorage(Storage):
     def exists(self, name):
         return True if self.stat_file(name) else False
 
-    def _open(self, name, file_mode='r'):
+    #@TODO:OPen with diferent file mode
+    def _open(self, name, file_mode='rb'):
         filename = "/%s/%s" % (self.location, name)
-        gcs_file = gcs.open(filename, mode=file_mode)
+        gcs_file = gcs.open(filename, mode="r")
         content_file = ContentFile(gcs_file.read())
         gcs_file.close()
         return content_file
@@ -70,8 +72,8 @@ class GoogleCloudStorage(Storage):
                 "name": name,
             }
             key = create_gs_key(filename)
-            return "http://localhost:8000/blobstore/blob/%s" % key
-        return "/%s" % (name,)
+            return "http://localhost:8000/blobstore/blob/%s?%s" % (key, "display=inline")
+        return "/%s/%s" % (self.location, name)
 
     def stat_file(self, name):
         """

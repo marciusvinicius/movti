@@ -6,6 +6,8 @@ SECRET_KEY = '&t9*(&(9*%1fzgm0)7k&@2s+xcv#+kxp2(d=8+eyojkw&lsrk1'
 
 DEBUG = True
 
+ENVTYPE = "LOCAL"
+
 ALLOWED_HOSTS = ["moveti-169514.appspot.com", "localhost"]
 
 INSTALLED_APPS = [
@@ -50,6 +52,7 @@ TEMPLATES = [
 #WSGI_APPLICATION = 'myphotos.wsgi.application'
 
 if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
+    ENVTYPE = "GOOGLE"
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',

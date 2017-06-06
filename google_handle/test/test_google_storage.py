@@ -10,13 +10,19 @@ import mock
 
 class GoogleStorageTestCase(TestCase):
 
+    def setUp(self):
+        import sys
+        sys.path.insert(1, 'google-cloud-sdk/platform/google_appengine')
+        sys.path.insert(1, 'google-cloud-sdk/platform/google_appengine/lib/yaml/lib')
+        sys.path.insert(1, '../../../lib')
+
     def test_create_init(self):
         storage = GoogleCloudStorage()
         self.asertEqual(storage.location, settings.GOOGLE_CLOUD_STORAGE_BUCKET)
         self.asertEqual(storage.base_url, settings.GOOGLE_CLOUD_STORAGE_URL)
 
-    @mock.path("google_handle.storage.google_clound.ContentFile")
-    @mock.path("google_handle.storage.google_clound.gcs")
+    @mock.path("google_handle.storage.handle.ContentFile")
+    @mock.path("google_handle.storage.handle.gcs")
     def test_on_open(self, gcs, ContentFile):
         storage = GoogleCloudStorage()
         storage.open("test.png")
@@ -27,8 +33,9 @@ class GoogleStorageTestCase(TestCase):
         gcs_file = mock.Mock()
         gcs.open.return_value = gcs_file
         gcs_file.read.assert_called()
+        ContentFile.assert_called_with(gcs_file.read())
 
-    @mock.path("google_handle.storage.google_clound.gcs")
+    @mock.path("google_handle.storage.handle.gcs")
     def test_on_save(self, gcs):
         storage = GoogleCloudStorage()
         content = mock.Mock()
@@ -47,16 +54,16 @@ class GoogleStorageTestCase(TestCase):
         content.close.assert_called()
         gss_file.close.assert_called()
 
-    @mock.path("google_handle.storage.google_clound.gcs")
+    @mock.path("google_handle.storage.handle.gcs")
     def test_state_file(self, gcs):
         storage = GoogleCloudStorage()
         storage.stat_file("image")
         filename = "/%s/%s" % (settings.GOOGLE_CLOUD_STORAGE_BUCKET, "image")
         gcs.assert_callet_with(filename)
 
-    @mock.path("google_handle.storage.google_clound.gcs")
+    @mock.path("google_handle.storage.handle.gcs")
     def test_state_raise(self, gcs):
         storage = GoogleCloudStorage()
         state = storage.stat_file("image")
         gcs.stat.side_effect(Exception())
-        self.assertAlmostEqual(state, None)
+        self.assertEqual(state, None)

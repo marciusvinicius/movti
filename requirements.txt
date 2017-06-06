@@ -3,6 +3,7 @@ django==1.11
 Pillow
 MySQL-python
 GoogleAppEngineCloudStorageClient==1.9.15.0
+ez_setup
 google-api-python-client
 python-firebase-gae
 #Dev

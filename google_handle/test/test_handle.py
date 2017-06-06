@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.test import TestCase
 from django.conf import settings
-from google_handle.storage.google_cloud import GoogleCloudStorage
+from google_handle.storage.handle import GoogleCloudStorage
 
 import mock
 
@@ -49,4 +49,14 @@ class GoogleStorageTestCase(TestCase):
 
     @mock.path("google_handle.storage.google_clound.gcs")
     def test_state_file(self, gcs):
-        pass
+        storage = GoogleCloudStorage()
+        storage.stat_file("image")
+        filename = "/%s/%s" % (settings.GOOGLE_CLOUD_STORAGE_BUCKET, "image")
+        gcs.assert_callet_with(filename)
+
+    @mock.path("google_handle.storage.google_clound.gcs")
+    def test_state_raise(self, gcs):
+        storage = GoogleCloudStorage()
+        state = storage.stat_file("image")
+        gcs.stat.side_effect(Exception())
+        self.assertAlmostEqual(state, None)

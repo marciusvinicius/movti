@@ -2,5 +2,7 @@
 django==1.11
 Pillow
 MySQL-python
+
+google-cloud-vision
 #Dev
 mock

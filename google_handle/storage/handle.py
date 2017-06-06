@@ -1,11 +1,14 @@
 
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import
+
 import os
 import mimetypes
 
 from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.files.storage import Storage
+
 
 from google.appengine.ext.blobstore import create_gs_key
 import cloudstorage as gcs
@@ -67,7 +70,7 @@ class GoogleCloudStorage(Storage):
                 "name": name,
             }
             key = create_gs_key(filename)
-            return "http://localhost:8000/blobstore/blob/"+key+"preview"
+            return "http://localhost:8000/blobstore/blob/%s" % key
         return "/%s" % (name,)
 
     def stat_file(self, name):

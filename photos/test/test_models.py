@@ -21,3 +21,6 @@ class PhotoTestCase(TestCase):
         photo = Photo(name="")
         with self.assertRaises(IOError):
             photo.save()
+
+
+#@TODO:Criar teste para o upload usando o GoogleStorage

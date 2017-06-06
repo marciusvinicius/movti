@@ -105,4 +105,4 @@ GOOGLE_CLOUD_STORAGE_BUCKET = 'moveti-169514.appspot.com'
 GOOGLE_CLOUD_STORAGE_URL = 'http://storage.googleapis.com/bucket'
 GOOGLE_CLOUD_STORAGE_DEFAULT_CACHE_CONTROL = 'public, max-age: 7200'
 
-DEFAULT_FILE_STORAGE = 'google_handle.storage.google_cloud.GoogleCloudStorage'
+DEFAULT_FILE_STORAGE = 'google_handle.storage.handle.GoogleCloudStorage'

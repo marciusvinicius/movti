@@ -18,8 +18,8 @@ class GoogleStorageTestCase(TestCase):
 
     def test_create_init(self):
         storage = GoogleCloudStorage()
-        self.asertEqual(storage.location, settings.GOOGLE_CLOUD_STORAGE_BUCKET)
-        self.asertEqual(storage.base_url, settings.GOOGLE_CLOUD_STORAGE_URL)
+        self.assertEqual(storage.location, settings.GOOGLE_CLOUD_STORAGE_BUCKET)
+        self.assertEqual(storage.base_url, settings.GOOGLE_CLOUD_STORAGE_URL)
 
     @mock.path("google_handle.storage.handle.ContentFile")
     @mock.path("google_handle.storage.handle.gcs")
